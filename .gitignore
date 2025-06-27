@@ -1,0 +1,73 @@
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+#any backup files
+*.bak
+
+# Quartus build output
+db/
+incremental_db/
+output_files/
+simulation/
+sim/
+*.rpt
+*.smsg
+*.summary
+*.done
+*.jdi
+*.pin
+*.qmsg
+*.sdc
+*.sld
+*.sof
+*.pof
+*.cdf
+*.elf
+*.map
+*.hex
+*.bin
+*.lst
+*.obj
+*.log
+*.asm
+*.vcd
+*.vpd
+*.vwf
+*.wlf
+*.svf
+*.fsdb
+
+# Quartus project-generated backups
+*.bak
+*.old
+*.bdf~*
+*.v~*
+*.sv~*
+*.qpf~
+*.qsf~
+
+# Temp/editor files
+*.swp
+*.swo
+*.tmp
+
+# Hidden system files
+.DS_Store
+Thumbs.db
