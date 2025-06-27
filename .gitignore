@@ -29,7 +29,8 @@ simulation/
 sim/
 greybox_tmp/
 greybox/
-
+*_bb.v
+*.qws
 *.rpt
 *.smsg
 *.summary
