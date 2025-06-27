@@ -1,0 +1,1 @@
+Warning: Verilog HDL information at new_highscore.v(10): always construct contains both blocking and non-blocking assignments File: C:/intelFPGA_lite/Projects/My projects/Reaction game/RTL/new_highscore.v Line: 10

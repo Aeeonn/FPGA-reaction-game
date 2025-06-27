@@ -1,0 +1,42 @@
+module reaction_game (
+	//CLOCK
+	input  wire        CLK_50,
+	
+	//SWITCHES
+    input  wire [9:0]  SW,
+	
+	//BUTTONS
+    input  wire [1:0]  KEY,
+	
+	//HEX DISPLAYS
+    output wire [6:0]  HEX0, HEX1, HEX2, HEX4, HEX5,
+    output wire [7:0]  HEX3,
+	
+	//LEDS
+    output wire [9:0]  LEDR
+);
+
+	wire [13:0] timer;
+	wire btn0_pulse;
+	wire btn1_pulse;
+	wire [1:0] state;
+	
+	btn_pulse btn0 (.iCLK(CLK_50), .iBTN(KEY[0]), .oBTN_PULSE(btn0_pulse));
+	btn_pulse btn1 (.iCLK(CLK_50), .iBTN(KEY[1]), .oBTN_PULSE(btn1_pulse));
+	
+	timer timer1 (.iCLK(CLK_50), .start_btn(btn0_pulse), .stop_btn(btn1_pulse), .leds(LEDR), .oTIMER(timer), .state(state));
+	
+	
+	wire [3:0] thousandths = timer % 10;
+	wire [3:0] hundredths = (timer / 10) % 10;
+	wire [3:0] tenths = (timer / 100) % 10;
+	wire [3:0] secs = (timer / 1000) % 10;
+	
+	hex_to_7seg display0 (.hex_digit(thousandths), .seg(HEX0));
+	hex_to_7seg display1 (.hex_digit(hundredths), .seg(HEX1));
+	hex_to_7seg display2 (.hex_digit(tenths), .seg(HEX2));
+	hex_to_7seg display3 (.hex_digit(secs), .seg(HEX3));
+	hex_to_7seg display4 (.hex_digit(10), .seg(HEX4));
+	hex_to_7seg display5 (.hex_digit(state), .seg(HEX5));
+	
+endmodule
