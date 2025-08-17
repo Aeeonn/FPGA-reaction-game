@@ -1,4 +1,7 @@
-module timer(iCLK, start_btn, stop_btn, leds, oTIMER, oFINAL, state);
+module timer #(
+	parameter SIM_MODE = 0
+	
+)(iCLK, start_btn, stop_btn, leds, oTIMER, oFINAL, state);
 	input wire iCLK;
 	input wire start_btn;
 	input wire stop_btn;
@@ -13,9 +16,14 @@ module timer(iCLK, start_btn, stop_btn, leds, oTIMER, oFINAL, state);
 	wire [26:0] delay_value;
 	wire done_delay;
 	
+	localparam REAL_TICK = 14'd49999; // ~1ms
+	localparam SIM_TICK  = 14'd50;    // 1000x faster
+	localparam TICK_VALUE = SIM_MODE ? SIM_TICK : REAL_TICK;
+
+	
 	
 	//Instantiate delay module
-	lfsr_delay delay (
+	lfsr_delay #(.SIM_MODE(SIM_MODE)) delay (
 		.iCLK(iCLK), 
 		.iRST(1'b0),
 		.iEN(delay_triggered), 
@@ -59,7 +67,7 @@ module timer(iCLK, start_btn, stop_btn, leds, oTIMER, oFINAL, state);
 			
 			
 			2: begin //TIMING USER
-				if (counter < 50_000 - 1) 
+				if (counter < TICK_VALUE) 
 				begin
 					counter <= counter + 1;
 				end else begin

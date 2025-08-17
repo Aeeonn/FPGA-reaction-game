@@ -1,4 +1,6 @@
-module reaction_game (
+module reaction_game #(
+	parameter SIM_MODE = 0 // 0 = HW, 1 = SIM
+)(
 	//CLOCK
 	input  wire        CLK_50,
 	
@@ -31,7 +33,7 @@ module reaction_game (
 	btn_pulse btn0 (.iCLK(CLK_50), .iBTN(KEY[0]), .oBTN_PULSE(btn0_pulse));
 	btn_pulse btn1 (.iCLK(CLK_50), .iBTN(KEY[1]), .oBTN_PULSE(btn1_pulse));
 	
-	timer timer1 (
+	timer #(.SIM_MODE(SIM_MODE)) timer1 (
 		.iCLK(CLK_50), 
 		.start_btn(btn0_pulse), 
 		.stop_btn(btn1_pulse), 

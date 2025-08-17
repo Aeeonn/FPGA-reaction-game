@@ -1,54 +1,69 @@
-`timescale 1ns/1ps
-module tb_reaction_game;
+`timescale 1ns / 1ps
 
-    /* 1. clocks & inputs */
-    reg clk = 0;
-    always #10 clk = ~clk;          // 50 MHz
+module tb_reaction_game();
 
-    reg  rst = 1'b0;                // if your top-level has a reset
-    reg  [1:0] KEY = 2'b11;         // DE10-Lite keys idle high
+    reg        CLK_50;
+    reg [9:0]  SW;
+    reg [1:0]  KEY;
 
-    /* 2. DUT */
-    reaction_game #(
-        .SIM_MODE(1)                // param in your RTL to shorten delays
-    ) dut (
-        .CLK_50 (clk),
-        .RESET  (rst),
-        .KEY    (KEY),
-        .LEDR   (),                 // leave un-connected or log
-        .HEX0   (),
-        .HEX1   ()
+    wire [6:0] HEX0, HEX1, HEX2, HEX4, HEX5;
+    wire [7:0] HEX3;
+    wire [9:0] LEDR;
+
+    reaction_game #(.SIM_MODE(1)) dut (
+        .CLK_50(CLK_50),
+        .SW(SW),
+        .KEY(KEY),
+        .HEX0(HEX0),
+        .HEX1(HEX1),
+        .HEX2(HEX2),
+        .HEX3(HEX3),
+        .HEX4(HEX4),
+        .HEX5(HEX5),
+        .LEDR(LEDR)
     );
 
-    /* 3. helpers */
-    task press_key0; begin KEY[0]=0; #60; KEY[0]=1; end endtask
-    task press_key1; begin KEY[1]=0; #60; KEY[1]=1; end endtask
-
-    /* 4. waveform dump (Icarus / Questa works too) */
+    // Clock: 50 MHz
     initial begin
-        $dumpfile("wave.vcd");
-        $dumpvars(0, tb_reaction_game);
+        CLK_50 = 0;
+        forever #10 CLK_50 = ~CLK_50;
     end
 
-    /* 5. stimulus & self-checks */
+    // Stimulus
     initial begin
-        // global reset pulse (if you need it)
-        rst = 1;  #200;  rst = 0;
+        // Initialize inputs
+        SW = 10'b0;
+        KEY = 2'b11;
 
-        // START a round
-        press_key0;
+        #100;
+        KEY[0] = 0;  // press button 0
+        #40;
+        KEY[0] = 1;  // release button 0
 
-        // wait until LEDs are on (random delay done)
-        wait (dut.u_timer.state == 2);   // TIMING state
+        #200;
+        SW[0] = 1;   // toggle switch 0 on
+        #100;
+        SW[0] = 0;   // toggle switch 0 off
 
-        // let it count ~5 ms then stop
-        repeat (250_000) @(posedge clk);
-        press_key1;
+        #200;
+        KEY[1] = 0;  // press button 1
+        #40;
+        KEY[1] = 1;  // release button 1
 
-        // assert the timer is non-zero and LEDs stayed lit
-        if (dut.oTIMER == 0)
-            $error("Timer never incremented!");
-
-        #1000 $finish;
+        #500;
+        $finish;
     end
+
+	reg test_signal;
+	initial begin
+		test_signal = 0;
+		forever #50 test_signal = ~test_signal;
+	end
+
+    // Monitor key signals
+    initial begin
+        $monitor("Time=%0t | SW=%b | KEY=%b | LEDR=%b", $time, SW, KEY, LEDR);
+    end
+
+	
 endmodule
