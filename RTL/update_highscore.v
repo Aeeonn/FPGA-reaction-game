@@ -22,7 +22,7 @@ module update_highscore (
     assign q = stored_high_score;
 	assign new_hs = current_score < stored_high_score;
 
-    highscore hs_ram (
+    ram_highscore hs_ram (
         .address(ram_address),
         .clock(iCLK),
         .data(ram_data_in),

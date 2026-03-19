@@ -1,7 +1,4 @@
-module lfsr_delay #(
-	parameter SIM_MODE = 0
-	
-)(iCLK, iRST, iEN, oDONE, oDELAY);
+module lfsr_delay(iCLK, iRST, iEN, oDONE, oDELAY);
     input wire iCLK;
     input wire iRST;
     input wire iEN;
@@ -11,10 +8,7 @@ module lfsr_delay #(
     reg [26:0] lfsr = 27'h1ABCDE7;
     reg [26:0] counter = 0;
     reg waiting = 0;
-	
-    localparam REAL_MAX = 27'd25_000_000;
-    localparam SIM_MAX  = 27'd1_000;
-    wire [26:0] max_delay = SIM_MODE ? SIM_MAX : REAL_MAX;
+    wire [26:0] max_delay = 27'd25_000_000;
 
 	// taps for primitive polynomial x^27 + x^26 + x^25 + x^22 + 1
     wire feedback = lfsr[26] ^ lfsr[25] ^ lfsr[24] ^ lfsr[21];
@@ -47,7 +41,7 @@ module lfsr_delay #(
 			if (counter < oDELAY)
 				counter <= counter + 1;
 			else begin
-				oDONE    <= 1;
+				oDONE <= 1;
 				waiting <= 0;
 			end
 		end

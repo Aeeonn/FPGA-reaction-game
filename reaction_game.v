@@ -1,6 +1,4 @@
-module reaction_game #(
-	parameter SIM_MODE = 0 // 0 = HW, 1 = SIM
-)(
+module reaction_game(
 	//CLOCK
 	input  wire        CLK_50,
 	
@@ -33,7 +31,7 @@ module reaction_game #(
 	btn_pulse btn0 (.iCLK(CLK_50), .iBTN(KEY[0]), .oBTN_PULSE(btn0_pulse));
 	btn_pulse btn1 (.iCLK(CLK_50), .iBTN(KEY[1]), .oBTN_PULSE(btn1_pulse));
 	
-	timer #(.SIM_MODE(SIM_MODE)) timer1 (
+	timer timer1 (
 		.iCLK(CLK_50), 
 		.start_btn(btn0_pulse), 
 		.stop_btn(btn1_pulse), 
@@ -52,7 +50,7 @@ module reaction_game #(
 		.q(stored_high_score)
 	);
 	
-	new_highscore new (
+	pb_led_animation animate (
 		.iCLK(CLK_50),
 		.new_hs(new_hs),
 		.state(state),
@@ -71,7 +69,7 @@ module reaction_game #(
 	hex_to_7seg display1 (.hex_digit(hundredths), .seg(HEX1));
 	hex_to_7seg display2 (.hex_digit(tenths), .seg(HEX2));
 	hex_to_7seg display3 (.hex_digit(secs), .seg(HEX3));
-	hex_to_7seg display4 (.hex_digit(10), .seg(HEX4));
-	hex_to_7seg display5 (.hex_digit(10), .seg(HEX5));
+	hex_to_7seg display4 (.hex_digit(4'd10), .seg(HEX4));
+	hex_to_7seg display5 (.hex_digit(4'd10), .seg(HEX5));
 	
 endmodule

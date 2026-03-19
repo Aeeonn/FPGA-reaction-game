@@ -1,4 +1,4 @@
-module new_highscore(
+module pb_led_animation(
     input wire iCLK,
     input wire new_hs,
     input wire [1:0] state,
