@@ -4,7 +4,7 @@
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: highscore.v
+// File Name: ram_highscore.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -87,6 +87,7 @@ module ram_highscore (
 	defparam
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
+		altsyncram_component.init_file = "highscore.mif",
 		altsyncram_component.intended_device_family = "MAX 10",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
@@ -94,7 +95,7 @@ module ram_highscore (
 		altsyncram_component.operation_mode = "SINGLE_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "CLOCK0",
-		altsyncram_component.power_up_uninitialized = "TRUE",
+		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_NO_NBE_READ",
 		altsyncram_component.widthad_a = 1,
 		altsyncram_component.width_a = 14,
@@ -113,19 +114,19 @@ endmodule
 // Retrieval info: PRIVATE: AclrOutput NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_ENABLE NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_SIZE NUMERIC "8"
-// Retrieval info: PRIVATE: BlankMemory NUMERIC "1"
+// Retrieval info: PRIVATE: BlankMemory NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_A NUMERIC "0"
 // Retrieval info: PRIVATE: Clken NUMERIC "0"
 // Retrieval info: PRIVATE: DataBusSeparated NUMERIC "1"
 // Retrieval info: PRIVATE: IMPLEMENT_IN_LES NUMERIC "0"
 // Retrieval info: PRIVATE: INIT_FILE_LAYOUT STRING "PORT_A"
-// Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "1"
+// Retrieval info: PRIVATE: INIT_TO_SIM_X NUMERIC "0"
 // Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "MAX 10"
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING "./RTL/highscore.mif"
+// Retrieval info: PRIVATE: MIFfilename STRING "highscore.mif"
 // Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "1"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "3"
@@ -142,6 +143,7 @@ endmodule
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
+// Retrieval info: CONSTANT: INIT_FILE STRING "highscore.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "MAX 10"
 // Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
@@ -149,7 +151,7 @@ endmodule
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "SINGLE_PORT"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_REG_A STRING "CLOCK0"
-// Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "TRUE"
+// Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_NO_NBE_READ"
 // Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "14"
@@ -164,10 +166,10 @@ endmodule
 // Retrieval info: CONNECT: @data_a 0 0 14 0 data 0 0 14 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 14 0 @q_a 0 0 14 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL highscore_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_highscore_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
